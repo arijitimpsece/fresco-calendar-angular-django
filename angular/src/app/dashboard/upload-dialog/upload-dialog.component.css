@@ -1,0 +1,32 @@
+.dragDrop {
+    border: 2px dashed #00838F;
+    border-radius: 10px;
+    padding: 15px 0 20px 0;
+    text-align: center;
+    cursor: pointer;
+    background-color: #E0F7FA;
+    font-size: small;
+    height: 50%;
+    width: 100%;
+}
+
+.fileIcon {
+    font-size: 40px;
+    color: #00838F;
+    height: 40px;
+    width: 40px;
+}
+
+#fileDrop {
+    height: 100px;
+    z-index: 10;
+}
+
+#dragOff {
+    margin: 5px 50px 10px 50px;
+    z-index: 0;
+}
+
+.upload1 {
+    height: 60%;
+}

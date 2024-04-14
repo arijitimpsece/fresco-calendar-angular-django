@@ -1,0 +1,37 @@
+.auth-base {
+    width: 30vw;
+    position: fixed;
+    top: 30vh;
+    right: 4vw;
+}
+
+.auth-title {
+    text-align: center;
+    font-size: 22px;
+    overflow: hidden;
+    border-radius: 5px;
+    padding-top: 12px;
+    padding-bottom: 10px;
+}
+
+.auth-content {
+    margin-top: 10px;
+}
+
+.content-card {
+    padding-top: 25px;
+    height: 190px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+mat-form-field {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.svg-base {
+    margin-top: 50px;
+}

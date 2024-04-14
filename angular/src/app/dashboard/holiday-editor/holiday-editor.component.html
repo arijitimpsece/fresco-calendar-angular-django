@@ -1,0 +1,53 @@
+<div style="width: 100%;">
+    <div class="mat-h1" style="text-align: center;">
+        <span> Holiday editor</span>
+        <br> {{selectedDate}}
+    </div>
+
+    <mat-card class="editorCard" *ngIf="editorFlag">
+        <form [formGroup]="holidayEditor">
+            <mat-card-content>
+
+                <mat-form-field appearance="outline" [style.fontSize.px]="15">
+
+                    <mat-label>Holiday Name</mat-label>
+                    <input matInput id='holidayName'>
+                    <!--
+                              Display error message here
+                              Use mat-error tag
+                                  -->
+                    <!--
+                               ** Error Message **
+                                1. Display error message "Enter HolidayName" if the field is empty
+                                2. Display error message "Holiday name should contain only alphabets" if the HolidayName is invalid
+                            -->
+                    <mat-error>
+                    </mat-error>
+                </mat-form-field>
+
+
+            </mat-card-content>
+
+            <mat-card-actions class="styleActionButton">
+                <!-- 
+                        Display Add button if its a new entry and hide if holiday exists.                        
+                        Disable button when the form is invalid
+                        when button click should call addHoliday()
+                    -->
+                <button  class="btnWidth" mat-flat-button color="primary">Add</button>
+                <!-- 
+                        Display Save button if holiday exists and hide if its a new entry 
+                        Disable button when the form is invalid
+                        when button click should call updateHoliday()
+                    -->
+                <button  class="btnWidth" mat-flat-button color="primary" >Save</button>
+                <!-- 
+                        Display Remove button if holiday exists and hide if its a new entry
+                        when button click should call removeHoliday()
+                    -->
+                <button  class="btnWidth" mat-stroked-button color="accent" >Remove</button>
+
+            </mat-card-actions>
+        </form>
+    </mat-card>
+</div>

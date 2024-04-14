@@ -1,0 +1,60 @@
+<div id="uploadDialog" mat-dialog-title style="display: flex;justify-content: space-between;">
+
+    <div mat-h1>
+        Upload CSV File
+    </div>
+
+    <button mat-icon-button color="accent" [mat-dialog-close] style="margin-top:-5px;margin-right: -10px;">
+        <mat-icon>cancel</mat-icon>
+    </button>
+
+</div>
+<div mat-dialog-content class='upload1'>
+
+    <!-- 
+        Use the below input tag to get file and assign it to 'file' variable
+    -->
+    <input type='file' style="display: none" id='fileUpload' accept=".csv">
+    <!--
+        Display #fileDrop div tag if user not selected the file.
+        Do not display #fileDrop div tag if user selected the file.
+        on Click #fileDrop div tag should call openFileExplorer()
+    -->
+
+    <div class='dragDrop' id='fileDrop' (drop)='fileDrop($event)'>
+        <div id='dragOff'>
+            <mat-icon class='fileIcon'>insert_drive_file</mat-icon>
+            <br> Click here to select the CSV file
+            <br> or
+            <br> Drag & Drop the CSV file here
+        </div>
+
+    </div>
+
+    <!-- 
+    Display #fileStatusSelected div tag if user selected the file.
+    -->
+
+    <div id='fileStatusSelected' mat-h1 style="text-align: center;margin-top:2px;">
+        Do you want to upload the file {{file.name}}?
+    </div>
+
+</div>
+
+<div mat-dialog-actions style="justify-content:center">
+    <!-- 
+    Display buttons if user selected the file.
+   -->
+    <div id="actionBtnsToUpload">
+        <!--
+            If yes, call closeDialog and pass true as parameter
+
+            If no, call closeDialog and pass false as parameter
+        -->
+        <button mat-flat-button color="primary">Yes</button>
+
+        <button mat-stroked-button color="accent">No</button>
+
+    </div>
+
+</div>
