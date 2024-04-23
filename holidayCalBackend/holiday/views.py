@@ -34,9 +34,9 @@ class HolidayCreateView(generics.ListAPIView):
             serializer = HolidaySerializer(data= request.data) #type list
             if serializer.is_valid():
                 serializer.save()
-                return Response({'status':1})
+                return JsonResponse({'status':1})
         else:
-            return Response({"date":["Date cannot be in the past"]}, status=400)        
+            return JsonResponse({"date":["Date cannot be in the past"]}, status=400)        
         
 
 class HolidayListView(generics.ListAPIView):
@@ -51,7 +51,7 @@ class HolidayListView(generics.ListAPIView):
     def put(self, request, pk, format=None): 
         date = datetime.strptime(request.data["date"],"%d/%m/%Y").date()
         Holiday.objects.filter(id=pk).update(city_name=request.data['city_name'], date=date, holidayName=request.data['holidayName'])
-        return Response({'status':1})  
+        return JsonResponse({'status':1})  
     # add appropriate permissions here 
 
 class CityListView(generics.ListAPIView):
@@ -91,7 +91,7 @@ class HolidayEditView(generics.ListAPIView):
         file_obj = request.FILES.get('file')
         print(file_obj.name);
         if file_obj.name != 'test_Valid.csv':
-            return Response({'status':0})
+            return JsonResponse({'status':0})
 
         try:
             decoded_file = file_obj.read().decode('utf-8')
@@ -102,11 +102,11 @@ class HolidayEditView(generics.ListAPIView):
                 serializer = HolidaySerializer(data= row) #type list
                 if serializer.is_valid():
                     serializer.save()
-                return Response({'status':1})    
+                return JsonResponse({'status':1})    
             
-            return Response({'message': 'CSV file uploaded successfully.'}, status=status.HTTP_200_OK)
+            return JsonResponse({'message': 'CSV file uploaded successfully.'}, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({'error': 'An error occurred while processing the CSV file.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return JsonResponse({'error': 'An error occurred while processing the CSV file.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 #Method to upload a file in csv format conatining all the records that are to be entered in the database
 	#use the function from check_date.py to get the flag for uploading. You need to upload the csv file only if the
     #flag is 1 and should not upload if the flag is 0.. 
@@ -137,7 +137,7 @@ class AdminLoginView(generics.ListAPIView):
         queryset = Admin.objects.filter(admin_email=request.data["admin_email"],password=request.data["password"])
         serializer_class = AdminSerializer(queryset, many=True)
         if serializer_class.data:
-            return Response({'status':1})
+            return JsonResponse({'status':1})
         else:
             return JsonResponse({'status':0})  
 
@@ -165,7 +165,14 @@ class DailyHolidayView(generics.ListAPIView):
         date = datetime.strptime(request.data["date"],"%d/%m/%Y").date()
         queryset = Holiday.objects.filter(city_name=request.data["city_name"],date=date)
         serializer_class = DailySerializer(queryset, many=True)
-        return Response(serializer_class.data[0])	
+        return Response(serializer_class.data[0])
+class CityView(generics.ListAPIView):
+    def delete(self, request, pk):
+        wish = Cities.objects.get(pk=pk)
+        wish.delete()
+        queryset = Cities.objects.all()
+        serializer_class = CitiesSerializer(queryset, many=True)
+        return JsonResponse(serializer_class.data, safe=False)           	
 #Method to add a holiday to the list
 #className ---> HolidayCreateView 
 	

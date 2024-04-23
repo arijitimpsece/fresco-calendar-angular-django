@@ -18,5 +18,6 @@ urlpatterns = [
     path('upload/', (views.HolidayEditView.as_view()), name='Upload'),
     path('admin/create', views.AdminCreateView.as_view(), name='Admin Create'),
     path('cities/create', views.CityCreateView.as_view(), name='City Create'),
+    path('cities/delete/<int:pk>/', views.CityView.as_view(), name='City Dele'),
 ]
 

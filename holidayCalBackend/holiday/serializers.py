@@ -33,7 +33,7 @@ class MonthSerializer(serializers.ModelSerializer):
   date = serializers.DateField(format='%d/%m/%Y')
   class Meta:
     model = Holiday
-    fields = ['id', 'date', 'holidayName']
+    fields = [ 'date','id', 'holidayName']
 class DailySerializer(serializers.ModelSerializer):
   date = serializers.DateField(format="%d/%m/%Y")
   class Meta:
