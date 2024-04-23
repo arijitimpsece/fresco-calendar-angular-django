@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/internal/Subject';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { HttpHeaders, HttpClient,  HttpRequest, HttpResponse, HttpEventType } from '@angular/common/http';
+import { tap, map } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
+
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -39,12 +40,12 @@ export class HolidayService {
 
   // to send selected date from holiday-view component to holiday-editor component
   sendUserSelectedDateId(date) {
-
+console.log('Selected date:', date);
   }
 
   // to notify holiday-view component.Use monthViewUpdate 
   monthComponentNotify() {
-
+    // this.monthViewUpdate.next();
   }
 
   // **************** Authentication **************** //
@@ -58,6 +59,7 @@ export class HolidayService {
   signIn(username: string, password: string): Observable<any> {
     const url = 'api/admin/login/';
     const body = { admin_email: username, password: password };
+    localStorage.setItem('isLoggedIn', 'true')
     return this.http.post<any>(url, body);
   }
 
@@ -66,8 +68,9 @@ export class HolidayService {
    * Navigate to signIn page
    */
   signOut() {
-
-
+    localStorage.setItem('isLoggedIn', '');
+    this.route.navigate(['/']);
+    return false;
   }
 
   /**
@@ -75,8 +78,12 @@ export class HolidayService {
    * or return false if user credentials are invalid
    */
   authValidator(): boolean {
-    
-    return null;
+    if (localStorage.getItem('isLoggedIn') == 'true' ){
+        return true;
+    } else {
+      return false;
+    };
+
   }
 
 
@@ -86,8 +93,8 @@ export class HolidayService {
    * Request using GET method and return Observable
    * Use the URL 'api/cities/'
    */
-  getCities(): Observable<any> {
-    return this.http.get('api/cities');
+  getCities(): Observable<any> { 
+    return this.http.get<any[]>('api/cities/');
   }
 
   // **************** Holiday View **************** //
@@ -99,7 +106,7 @@ export class HolidayService {
    */
   getHolidays(city: string, monthIndex: number, year: number): Observable<any> {
 
-    return this.http.post('api/monthly',{city_name: city, month: monthIndex+1, year});
+    return this.http.post<any>('api/monthly/',{city_name: city, month: monthIndex+1, year: year});
   }
 
 
@@ -112,7 +119,7 @@ export class HolidayService {
    */
   getSelectedHolidayInfo(date: string, city: string): Observable<any> {
    
-    return null;
+    return this.http.post('api/daily/',{date: date, city_name: city});
   }
 
   /**
@@ -121,8 +128,17 @@ export class HolidayService {
    * Use the URL 'api/create/'
    */
   addHoliday(date: string, city: string, holidayName: string): Observable<any> {
-   
-    return null;
+      const [day, month, year] = date.split('/');
+
+      const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;  
+      
+      const req = new HttpRequest('POST', 'api/create/', {date: formattedDate, city_name: city, holidayName: holidayName });
+      return this.http.request(req).pipe(
+        map(event => {        
+            return { city_name: city, date: formattedDate, holidayName: holidayName };
+          // }
+        })
+    );
   }
 
   /**
@@ -131,31 +147,67 @@ export class HolidayService {
    * Use the URL 'api/updateholidayinfo/:id/'.:id -> holiday id
    */
   updateHoliday(id: any, date: string, city: string, holidayName: string): Observable<any> {
-    
-    return null;
+    const pref = 'api/updateholidayinfo/';
+    const url = `${pref}${id}/`;
+     const req = new HttpRequest('PUT', url, {date: date, city_name: city, holidayName: holidayName});
+     return this.http.request(req).pipe(
+      map(event => {
+        if (event instanceof HttpResponse) {
+          return event.body;
+        }
+      })
+    );
+
+    // return this.http.put(url,{date: date, city_name: city, holidayName: holidayName});
   }
 
 
-  /**
-   * Request using DELETE method
-   * Return Observable
-   * Use the URL 'api/deleteholidayinfo/:id/'. :id -> holiday id
-   */
+  // /**
+  //  * Request using DELETE method
+  //  * Return Observable
+  //  * Use the URL 'api/deleteholidayinfo/:id/'. :id -> holiday id
+  //  */
   removeHoliday(id: any): Observable<any> {
-    return null;
+    const pref = 'api/deleteholidayinfo/';
+    const url = `${pref}${id}/`;
+     const req = new HttpRequest('DELETE', url);
+     return this.http.request(req).pipe(
+      map(event => {
+        if (event instanceof HttpResponse) {
+          return event.body;
+        }
+      })
+    );
+    
   }
 
-  // **************** Upload **************** //
+  // // **************** Upload **************** //
 
-  /**
-   * Request using POST method and send FormData with 'file' as name
-   * Return Observable
-   * Use the URL 'api/upload/'
-   */
+  // /**
+  //  * Request using POST method and send FormData with 'file' as name
+  //  * Return Observable
+  //  * Use the URL 'api/upload/'
+  //  */
 
-  uploadFile(file: File): Observable<any> {
+  uploadFile(file: File): Observable<any>{
+    const formData = new FormData();
+    formData.append('file', file);
+    const headers = new HttpHeaders();
+    // // Set Content-Type to multipart/form-data
+    headers.set('Content-Type', 'multipart/form-data');
+
+     const req = new HttpRequest('POST', 'api/upload/', formData, {
+      headers
+    });
     
-    return null;
+
+    return this.http.request(req).pipe(
+      map(event => {
+        if (event instanceof HttpResponse) {
+          return event.body;
+        }
+      })
+    );
   }
 
 }

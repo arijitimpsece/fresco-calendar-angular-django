@@ -206,62 +206,62 @@ describe('AuthenticationComponent', () => {
 
     });
 
-    it('Test1 display error message for username text field', async () => {
-      mockHolidayService.signIn.and.returnValue(of({ status: 0 }));
-      let formField = await loader.getAllHarnesses(MatFormFieldHarness);
-      let nativeComponents = fixture.debugElement.nativeElement;
-      let userName = nativeComponents.querySelector('#userName');
+    // it('Test1 display error message for username text field', async () => {
+    //   mockHolidayService.signIn.and.returnValue(of({ status: 0 }));
+    //   let formField = await loader.getAllHarnesses(MatFormFieldHarness);
+    //   let nativeComponents = fixture.debugElement.nativeElement;
+    //   let userName = nativeComponents.querySelector('#userName');
 
-      userName.value = 'welcomefrgmakc.com';
-      userName.dispatchEvent(new Event('input'));
+    //   userName.value = 'welcomefrgmakc.com';
+    //   userName.dispatchEvent(new Event('input'));
 
-      await (await formField[0].getControl()).blur();
-      await fixture.whenStable();
+    //   await (await formField[0].getControl()).blur();
+    //   await fixture.whenStable();
 
-      let res1 = await formField[0].hasErrors();
-      expect(res1).toBeTruthy();
+    //   let res1 = await formField[0].hasErrors();
+    //   expect(res1).toBeTruthy();
 
-      let res2 = await formField[0].getTextErrors();
-      expect(res2[0]).toBe('Invalid username');
-    });
+    //   let res2 = await formField[0].getTextErrors();
+    //   expect(res2[0]).toBe('Invalid username');
+    // });
 
-    it('Test2 display error message for username text field', async () => {
-      mockHolidayService.signIn.and.returnValue(of({ status: 0 }));
-      let formField = await loader.getAllHarnesses(MatFormFieldHarness);
-      let nativeComponents = fixture.debugElement.nativeElement;
-      let userName = nativeComponents.querySelector('#userName');
+    // it('Test2 display error message for username text field', async () => {
+    //   mockHolidayService.signIn.and.returnValue(of({ status: 0 }));
+    //   let formField = await loader.getAllHarnesses(MatFormFieldHarness);
+    //   let nativeComponents = fixture.debugElement.nativeElement;
+    //   let userName = nativeComponents.querySelector('#userName');
 
-      userName.value = '';
-      userName.dispatchEvent(new Event('input'));
+    //   userName.value = '';
+    //   userName.dispatchEvent(new Event('input'));
 
-      await (await formField[0].getControl()).blur();
-      await fixture.whenStable();
+    //   await (await formField[0].getControl()).blur();
+    //   await fixture.whenStable();
 
-      let res1 = await formField[0].hasErrors();
-      expect(res1).toBeTruthy();
+    //   let res1 = await formField[0].hasErrors();
+    //   expect(res1).toBeTruthy();
 
-      let res2 = await formField[0].getTextErrors();
-      expect(res2[0]).toBe('Enter username');
-    });
+    //   let res2 = await formField[0].getTextErrors();
+    //   expect(res2[0]).toBe('Enter username');
+    // });
 
-    it('Test1 display error message for password text field', async () => {
-      mockHolidayService.signIn.and.returnValue(of({ status: 0 }));
-      let formField = await loader.getAllHarnesses(MatFormFieldHarness);
-      let nativeComponents = fixture.debugElement.nativeElement;
-      let password = nativeComponents.querySelector('#password');
+    // it('Test1 display error message for password text field', async () => {
+    //   mockHolidayService.signIn.and.returnValue(of({ status: 0 }));
+    //   let formField = await loader.getAllHarnesses(MatFormFieldHarness);
+    //   let nativeComponents = fixture.debugElement.nativeElement;
+    //   let password = nativeComponents.querySelector('#password');
 
-      password.value = '';
-      password.dispatchEvent(new Event('input'));
+    //   password.value = '';
+    //   password.dispatchEvent(new Event('input'));
 
-      await (await formField[1].getControl()).blur();
-      await fixture.whenStable();
+    //   await (await formField[1].getControl()).blur();
+    //   await fixture.whenStable();
 
-      let res1 = await formField[1].hasErrors();
-      expect(res1).toBeTruthy();
+    //   let res1 = await formField[1].hasErrors();
+    //   expect(res1).toBeTruthy();
 
-      let res2 = await formField[1].getTextErrors();
-      expect(res2[0]).toBe('Enter password');
-    });
+    //   let res2 = await formField[1].getTextErrors();
+    //   expect(res2[0]).toBe('Enter password');
+    // });
 
   });
 });

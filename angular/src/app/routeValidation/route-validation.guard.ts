@@ -20,8 +20,13 @@ export class RouteValidationGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
-    return null;
+      if (this.holidayServiceObj.authValidator()) {
+        return true;
+      } else {
+        // If not authenticated, redirect to login page
+        this.route.navigate(['/']);
+        return false;
+      }
   }
 
 }

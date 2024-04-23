@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, EventEmitter,AfterViewInit , Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HolidayService } from 'src/app/services/holiday.service';
 
@@ -10,6 +10,7 @@ import { HolidayService } from 'src/app/services/holiday.service';
 export class UploadDialogComponent implements OnInit, AfterViewInit {
 
   file: File = null;
+   @Output() fileSent: EventEmitter<File> = new EventEmitter<File>();
   constructor(public dialogRef: MatDialogRef<UploadDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data, private holidayServiceObj: HolidayService) {
 
@@ -50,8 +51,18 @@ export class UploadDialogComponent implements OnInit, AfterViewInit {
    * Using #fileUpload id open the file explorer to upload file
    */
   openFileExplorer() {
+    const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
+    fileUpload.click();
   }
 
+  handleFileInput(event: any): void {
+    const files: FileList = event.target.files;
+    console.log(files)
+    if (files && files.length > 0) {
+      this.file = files[0]
+      // Handle file upload logic here
+    }
+  }
   fileDrop(fileUploadEvent: DragEvent) {
     fileUploadEvent.preventDefault();
 
@@ -73,7 +84,12 @@ export class UploadDialogComponent implements OnInit, AfterViewInit {
    * if userResponse is false => close the dialog
   */
   closeDialog(userResponse) {
+      if (userResponse === true) {
 
+        this.dialogRef.close(this.file);
+      } else {
+        this.dialogRef.close()
+      }
   }
 
 }

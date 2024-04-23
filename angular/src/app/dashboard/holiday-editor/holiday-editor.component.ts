@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { HolidayService } from 'src/app/services/holiday.service';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl,FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-holiday-editor',
@@ -25,7 +25,7 @@ export class HolidayEditorComponent implements OnInit, OnChanges {
    */
   holidayEditor: FormGroup;
 
-  constructor() {
+  constructor(private holidayServiceObj: HolidayService,  private fb: FormBuilder) {
 
   }
 
@@ -33,7 +33,6 @@ export class HolidayEditorComponent implements OnInit, OnChanges {
    * When city change get Holiday information
    */
   ngOnChanges(changes: SimpleChanges): void {
-
   }
 
   /**
@@ -87,7 +86,10 @@ export class HolidayEditorComponent implements OnInit, OnChanges {
    *    -> User should be able to add new Holiday
    */
   removeHoliday() {
-   
+   // this.holidayServiceObj.getCities().subscribe(data =>{
+   //    this.cities = data;
+   //    console.log(typeof this.cities)
+   //  })
   }
 
 }

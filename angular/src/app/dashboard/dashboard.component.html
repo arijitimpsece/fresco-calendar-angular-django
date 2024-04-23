@@ -2,7 +2,7 @@
 
     <div class="sign-out">
         <!-- On click should call signOut-->
-        <button mat-flat-button color="primary" id="signOut">Sign out</button>
+        <button mat-flat-button color="primary" id="signOut" (click)="signOut()">Sign out</button>
     </div>
 
 
@@ -17,15 +17,13 @@
                 <!-- 
                     On click should call navigationArrowMonth
                 -->
-                <button mat-icon-button id="leftMonthKey" aria-label="left naviage" >
+                <button mat-icon-button id="leftMonthKey" aria-label="left naviage" (click)="navigationArrowMonth(0)">
                     <mat-icon>keyboard_arrow_left
                     </mat-icon>
                 </button>
 
                 <div id="monthValue" class="nameArrage" style="width: 120px;">
-                    <!-- 
-                        Display month in Alphabets
-                    -->
+                    {{monthInAlphabets[monthIndex]}}
 
                 </div>
 
@@ -33,7 +31,7 @@
                     On click should call navigationArrowMonth
                     disable when reaches limit
                 -->
-                <button mat-icon-button id="rightMonthKey" aria-label="right naviage" >
+                <button [disabled]="monthNavigatorValidation()" mat-icon-button id="rightMonthKey" aria-label="right naviage" (click)="navigationArrowMonth(1)">
                     <mat-icon>keyboard_arrow_right
                     </mat-icon>
                 </button>
@@ -45,7 +43,7 @@
                 <!--
                      On click should call navigationArrowYear
                     -->
-                <button id="leftYearKey" mat-icon-button aria-label="left naviage" >
+                <button id="leftYearKey" mat-icon-button aria-label="left naviage" (click)="navigationArrowYear(0)">
                     <mat-icon>keyboard_arrow_left
                     </mat-icon>
                 </button>
@@ -54,14 +52,14 @@
                     <!-- 
                         Display year 
                      -->
-
+                    {{year}}
                 </div>
 
                 <!-- 
                     On click should call navigationArrowYear
                     disable when reaches limit
                 -->
-                <button id="rightYearKey" mat-icon-button aria-label="right naviage" >
+                <button [disabled]="yearNavigatorValidation()" id="rightYearKey" mat-icon-button aria-label="right naviage" (click)="navigationArrowYear(1)"  >
                     <mat-icon>keyboard_arrow_right
                     </mat-icon>
                 </button>
@@ -81,7 +79,8 @@
                                 mat-select should contain id as "cityDropDown"
                                 The selected city should be assigned to "selectedCity" variable 
                             -->
-                        <mat-select id="cityDropDown" placeholder="Select" >
+                         <mat-select id="cityDropDown" placeholder="Select" [(ngModel)]="selectedCity" name="selectedCity">
+                            <mat-option *ngFor="let city of cities" [value]="city.cityName">{{city.cityName}}</mat-option>
 
                         </mat-select>
 
@@ -89,7 +88,7 @@
                 </div>
 
                 <!-- On click should call uploadDialog-->
-                <button id="uploadBtn" mat-icon-button aria-label="cloud upload" style='margin-top:5px'>
+                <button id="uploadBtn" (click)="uploadDialog()" mat-icon-button aria-label="cloud upload" style='margin-top:5px'>
 
                     <mat-icon>cloud_upload</mat-icon>
 
@@ -98,7 +97,7 @@
 
         </div>
 
-        <app-holiday-view *ngIf='selectedCity' [monthIndex]='monthIndex' [year]='year' [city]='selectedCity'>
+        <app-holiday-view  [monthIndex]='monthIndex' [year]='year' [city]='selectedCity'>
         </app-holiday-view>
 
     </div>

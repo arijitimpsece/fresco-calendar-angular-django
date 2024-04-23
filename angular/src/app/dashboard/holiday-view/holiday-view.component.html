@@ -1,38 +1,48 @@
-<div class="calendar-header">
-    <!--
-        Calendar Header
-    -->
-    <!--
-       Each header should contain two css class
-            1. week
-            2. mat-h3
-    -->
+    <div class="calendar-header">
+        <!--
+            Calendar Header
+        -->
+        <!--
+           Each header should contain two css class
+                1. week
+                2. mat-h3
+        -->
 
+    <div *ngFor="let week of weekHeader" class="week mat-h3">{{week}}</div>
+    </div>
 
-</div>
+    <div class="calendar-body" *ngIf="dateObj.length>0">
+        <!--
+        Create a calendar grid
+        * The gird should contain 6 rows and 7 column
+        * Each row should contain "tr-row" css class
+        * Each cell should contain "td-month" css class
+        * The calendar grid contains previous month date, current month date and next month date
+            * If the cell contains current month date then the cell should have "tdEnabled" css class
+            * If the cell contains previous month or next month date then the cell should have "tdDisabled" css class
+            * If a cell is selected then add "tdSelected" css class to it.
+        -->
 
-<div class="calendar-body" *ngIf="dateObj.length>0">
-    <!--
-    Create a calendar grid
-    * The gird should contain 6 rows and 7 column
-    * Each row should contain "tr-row" css class
-    * Each cell should contain "td-month" css class
-    * The calendar grid contains previous month date, current month date and next month date
-        * If the cell contains current month date then the cell should have "tdEnabled" css class
-        * If the cell contains previous month or next month date then the cell should have "tdDisabled" css class
-        * If a cell is selected then add "tdSelected" css class to it.
-    -->
-
-    <!--
-        Use "mat-h1" css class for displaying date
-        Use "mat-h3", "holidayBox" css class for displaying holiday name
-        Add "holidayBoxUnSelected" css class for  Unselected holiday name
-        If a holiday name is selected
-            * Add "holidayBoxSelected" css class
-            * Remove "holidayBoxUnSelected" css class            
-    -->
-    <!-- 
-        Note: do not use Table tag.
-    -->
-
-</div>
+        <!--
+            Use "mat-h1" css class for displaying date
+            Use "mat-h3", "holidayBox" css class for displaying holiday name
+            Add "holidayBoxUnSelected" css class for  Unselected holiday name
+            If a holiday name is selected
+                * Add "holidayBoxSelected" css class
+                * Remove "holidayBoxUnSelected" css class            
+        -->
+        <!-- 
+            Note: do not use Table tag.
+        -->
+     <div *ngFor="let row of dateObj" class="tr-row">
+            <div *ngFor="let cell of row" class="td-month">
+                <div *ngIf="cell.enabled">
+                       <div class="mat-h1" (click)="sendSelectedDate(cell.date)" [ngClass]="[cell.enabled ? 'tdEnabled' : 'tdDisabled']">{{cell.date}}</div> 
+                   </div>
+                   <div *ngIf="!cell.enabled">
+                       <div class="mat-h1"  [ngClass]="[cell.enabled ? 'tdEnabled' : 'tdDisabled']">{{cell.date}}</div> 
+                   </div>
+               <div  class="mat-h3 holidayBox">{{ cell.date }}</div>
+            </div>
+        </div>
+    </div>

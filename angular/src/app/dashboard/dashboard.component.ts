@@ -18,13 +18,24 @@ export class DashboardComponent implements OnInit {
   year;
 
   // add month names in monthInAlphabets Array
-  monthInAlphabets:Array<any> = [];
+  monthInAlphabets: Array<any> = [ 'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December' ];
 
   // Use month index to get month in monthInAlphabets
   monthIndex = 0;
 
   // get cities and assign it to cities
-  cities: Array<any>;
+  cities: any[] = [];
 
   constructor(public dialog: MatDialog, private holidayServiceObj: HolidayService, private route: Router) {
 
@@ -35,8 +46,10 @@ export class DashboardComponent implements OnInit {
    * get cities
    */
   ngOnInit() {
-
-
+    var date = new Date();
+    this.year = date.getFullYear();
+    this.monthIndex = date.getMonth()
+    this.getCities();
   }
 
   /**
@@ -45,8 +58,19 @@ export class DashboardComponent implements OnInit {
    *  if "flag" is 1 which means that user click right arrow key ->
    */
   navigationArrowMonth(flag) {
-
-  
+    // console.log(flag);
+    // console.log(this.monthIndex)
+    if(flag == 0 && this.monthInAlphabets[this.monthIndex]=== 'January'){
+      this.monthIndex = 12
+      this.year--
+    } else if(flag == 1 && this.monthInAlphabets[this.monthIndex]=== 'December'){
+      // console.log(this.monthInAlphabets[this.monthIndex])
+      // console.log(this.monthIndex)
+      this.monthIndex = -1
+      this.year++
+    }
+    flag === 0 ? this.monthIndex-- : this.monthIndex++
+    
   }
 
   /**
@@ -55,7 +79,7 @@ export class DashboardComponent implements OnInit {
    *  if "flag" is 1 which means that user onclick right arrow key ->
    */
   navigationArrowYear(flag) {
- 
+    flag === 0 ? this.year-- : this.year++
   }
 
   /**
@@ -64,8 +88,13 @@ export class DashboardComponent implements OnInit {
    * Return false to enable
    */
   monthNavigatorValidation() {
-  
-    return null;
+    if(this.monthIndex !== 11){
+      return false;
+    }else if(new Date().getMonth() === 11 && this.year === new Date().getFullYear()){
+      return false;
+    }else{
+      return true;
+    }
   }
 
   /**
@@ -74,8 +103,39 @@ export class DashboardComponent implements OnInit {
    * return false to enable
    */
   yearNavigatorValidation() {
-
-    return null;
+  // let setDate = new Date('2019/12/23');
+  //     jasmine.clock().mockDate(setDate);
+  //     component.monthIndex = 11;
+  //     component.year = 2019;
+  //     expect(component.yearNavigatorValidation()).toBeFalsy();
+   
+   if (this.year == new Date().getFullYear() && this.monthIndex > new Date().getMonth()) {
+      return true;
+    } else if (this.year == new Date().getFullYear() && this.monthIndex > new Date().getMonth()) {
+      return true;
+    }
+    else if (this.year > new Date().getFullYear() ) {
+      return true;
+    } else if (new Date().getFullYear() == this.year &&  this.monthIndex<new Date().getMonth()) {
+      return false;
+    }  else {
+      return false;
+    }
+    // if(this.monthIndex !== 11 && this.year < new Date().getFullYear()){
+    //   return false
+    // } else if(this.monthIndex === 11 && this.monthIndex == new Date().getMonth() && this.year < new Date().getFullYear()){
+    //   return false;
+    // }else if(this.monthIndex !== 11){
+    //     return true
+    // }else if(new Date().getMonth() === 11 && this.monthIndex == 11 && this.year >= new Date().getFullYear()){
+    //   return true;
+    // } else if(new Date().getMonth() === 11 && this.monthIndex == 11 && this.year < new Date().getFullYear()){
+    //   return false;  
+    // }else if(this.monthIndex == 11 && this.monthIndex< new Date().getMonth() && this.year <= new Date().getFullYear()){
+    //   return false;
+    // }else{
+    //   return true;
+    // }
   }
 
   /**
@@ -83,18 +143,45 @@ export class DashboardComponent implements OnInit {
    * After dialog close upload the file and update holiday view component using monthComponentNotify() in HolidayService
    */
   uploadDialog() {
- 
-
+    this.holidayServiceObj.addHoliday('14/02/2020','chjsdhjs', 'asdgbio').subscribe(data=>{
+    });
+    const dialogRef = this.dialog.open(UploadDialogComponent, {
+      width: '500px', // Set width of the dialog
+      // Optionally you can add more configurations here
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    
+      if (result instanceof File) { // Check if result is a File object
+        // If upload is successful, call the uploadFile function in the HolidayService
+        this.holidayServiceObj.uploadFile(result).subscribe(data=>{
+          // this.holidayServiceObj.monthComponentNotify();
+        }); // Pass the selected file to the service
+      } else {
+        console.log('File upload cancelled or no file selected.');
+      }
+    });
+     
+    // const formData = new FormData();
+    // const fileName = event.target.files[0];
+    // console.log(fileName);
+    //  this.holidayServiceObj.uploadFile(fileName).subscribe(data =>{
+    //   console.log(typeof this.cities)
+    // })
   }
+
 
   // Get cities list and assign the response value to cities
   getCities() {
-
+    this.holidayServiceObj.getCities().subscribe(data =>{
+      this.cities = data;
+      console.log(typeof this.cities)
+    })
   }
 
   // signOut
   signOut() {
-
+    // alert(11)
+    this.holidayServiceObj.signOut();
   }
 
 

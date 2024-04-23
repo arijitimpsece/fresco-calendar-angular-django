@@ -46,24 +46,28 @@ export class AuthenticationComponent implements OnInit {
  
 
   validate(): void {
-    if (this.signInForm.invalid) {
-      this.snackBar.open('Invalid password', 'Close');
-      return;
-    }
-    
+    // if (this.signInForm.invalid) {
+    //   this.snackBar.open('Invalid password', 'Close');
+    //   return;
+    // }
+ 
     this.holidayServiceObj.signIn(this.userName.value, this.password.value).subscribe(
       response => {
         if (response.status == 1) {
+          localStorage.setItem('isLoggedIn', 'true');
            this.route.navigate(['/dashboard']);
+           // alert(localStorage.getItem('isLoggedIn'))
+           return true;
          }  else {
-          console.error('Login failed:', error);
-          this.snackBar.open('Invalid password');
+          this.snackBar.open('Invalid password', 'Close');
+          return false;
          }
         // Handle successful login response here
       },
       error => {
         console.error('Login failed:', error);
-        this.snackBar.open('Invalid password');
+        this.snackBar.open('Invalid password', 'Close');
+        return false;
         // this.loginError = 'Invalid email or password';
         // Handle login error here
       }
