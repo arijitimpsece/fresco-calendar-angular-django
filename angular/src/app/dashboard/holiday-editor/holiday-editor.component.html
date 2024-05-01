@@ -11,7 +11,17 @@
                 <mat-form-field appearance="outline" [style.fontSize.px]="15">
 
                     <mat-label>Holiday Name</mat-label>
-                    <input matInput id='holidayName'>
+                    <input matInput id='holidayName' formControlName="holidayName" id="holidayName" > 
+                    <mat-error *ngIf="holidayName.errors && (holidayName.dirty || holidayName.touched)">
+                       
+                      <span *ngIf="holidayName.errors.required">
+                        Enter HolidayName
+                      </span>
+                      <span *ngIf="holidayName.errors.pattern">
+                        Holiday name should contain only alphabets
+                      </span>
+                
+                    </mat-error>
                     <!--
                               Display error message here
                               Use mat-error tag
@@ -34,7 +44,7 @@
                         Disable button when the form is invalid
                         when button click should call addHoliday()
                     -->
-                <button  class="btnWidth" mat-flat-button color="primary" (click)="addHoliday()">Add</button>
+                <button [disabled]="holidayEditor.invalid"  class="btnWidth" mat-flat-button color="primary" (click)="addHoliday()">Add</button>
                 <!-- 
                         Display Save button if holiday exists and hide if its a new entry 
                         Disable button when the form is invalid

@@ -158,7 +158,8 @@ weekHeader = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 
 
   }
-extractDay(dateString: string): string {
+ extractDay(dateString: string): string {
+  // console.log(dateString)
     return dateString.split('/')[0];
   }
 daysInMonth(monthIndex){

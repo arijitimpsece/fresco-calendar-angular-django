@@ -26,9 +26,13 @@ export class HolidayEditorComponent implements OnInit, OnChanges {
   holidayEditor: FormGroup;
 
   constructor(private holidayServiceObj: HolidayService,  private fb: FormBuilder) {
-
+      this.holidayEditor = this.fb.group({
+      holidayName: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]]
+    });
   }
-
+  get holidayName() {
+    return this.holidayEditor.get('holidayName');
+  }
   /**
    * When city change get Holiday information
    */
@@ -40,6 +44,7 @@ export class HolidayEditorComponent implements OnInit, OnChanges {
    * Call getSelectedHolidayInfo() when user selects date
    */
   ngOnInit(): void {
+
     this.holidayServiceObj.userDate$.subscribe(selectedDate => {
       this.selectedDate = selectedDate;
       this.getSelectedHolidayInfo()

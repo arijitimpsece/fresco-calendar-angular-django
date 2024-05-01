@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-	<testsuite name="holiday.tests.PageHitTests-20240421213744" tests="17" file="holiday/tests.py" time="0.588" timestamp="2024-04-21T21:37:45" failures="0" errors="0" skipped="0">
-		<testcase classname="holiday.tests.PageHitTests" name="test_admin_login_view" time="0.122" timestamp="2024-04-21T21:37:44" file="holiday\tests.py" line="91"/>
-		<testcase classname="holiday.tests.PageHitTests" name="test_admin_text_content" time="0.016" timestamp="2024-04-21T21:37:44" file="holiday\tests.py" line="54"/>
-		<testcase classname="holiday.tests.PageHitTests" name="test_all_city_names" time="0.016" timestamp="2024-04-21T21:37:44" file="holiday\tests.py" line="147"/>
-		<testcase classname="holiday.tests.PageHitTests" name="test_create_page" time="0.016" timestamp="2024-04-21T21:37:44" file="holiday\tests.py" line="31"/>
-		<testcase classname="holiday.tests.PageHitTests" name="test_del_holiday_name" time="0.000" timestamp="2024-04-21T21:37:44" file="holiday\tests.py" line="153"/>
-		<testcase classname="holiday.tests.PageHitTests" name="test_holiday_text_content" time="0.016" timestamp="2024-04-21T21:37:45" file="holiday\tests.py" line="41"/>
-		<testcase classname="holiday.tests.PageHitTests" name="test_holidays_page" time="0.016" timestamp="2024-04-21T21:37:45" file="holiday\tests.py" line="25"/>
-		<testcase classname="holiday.tests.PageHitTests" name="test_update" time="0.031" timestamp="2024-04-21T21:37:45" file="holiday\tests.py" line="158"/>
-		<testcase classname="holiday.tests.PageHitTests" name="test_upload_invalid" time="0.263" timestamp="2024-04-21T21:37:45" file="holiday\tests.py" line="131">
+	<testsuite name="holiday.tests.PageHitTests-20240501185957" tests="17" file="holiday/tests.py" time="0.109" timestamp="2024-05-01T18:59:57" failures="0" errors="0" skipped="0">
+		<testcase classname="holiday.tests.PageHitTests" name="test_admin_login_view" time="0.000" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="91"/>
+		<testcase classname="holiday.tests.PageHitTests" name="test_admin_text_content" time="0.000" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="54"/>
+		<testcase classname="holiday.tests.PageHitTests" name="test_all_city_names" time="0.000" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="147"/>
+		<testcase classname="holiday.tests.PageHitTests" name="test_create_page" time="0.016" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="31"/>
+		<testcase classname="holiday.tests.PageHitTests" name="test_del_holiday_name" time="0.000" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="153"/>
+		<testcase classname="holiday.tests.PageHitTests" name="test_holiday_text_content" time="0.000" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="41"/>
+		<testcase classname="holiday.tests.PageHitTests" name="test_holidays_page" time="0.016" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="25"/>
+		<testcase classname="holiday.tests.PageHitTests" name="test_update" time="0.000" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="158"/>
+		<testcase classname="holiday.tests.PageHitTests" name="test_upload_invalid" time="0.031" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="131">
 			<system-out><![CDATA[test_Invalid.csv
 ]]></system-out>
 		</testcase>
-		<testcase classname="holiday.tests.PageHitTests" name="test_upload_invalid_with_cities" time="0.031" timestamp="2024-04-21T21:37:45" file="holiday\tests.py" line="139">
+		<testcase classname="holiday.tests.PageHitTests" name="test_upload_invalid_with_cities" time="0.016" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="139">
 			<system-out><![CDATA[test_Invalid_with_cities.csv
 ]]></system-out>
 		</testcase>
-		<testcase classname="holiday.tests.PageHitTests" name="test_valid" time="0.031" timestamp="2024-04-21T21:37:45" file="holiday\tests.py" line="123">
+		<testcase classname="holiday.tests.PageHitTests" name="test_valid" time="0.000" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="123">
 			<system-out><![CDATA[test_Valid.csv
 ]]></system-out>
 		</testcase>
-		<testcase classname="holiday.tests.PageHitTests" name="test_view_create" time="0.000" timestamp="2024-04-21T21:37:45" file="holiday\tests.py" line="108"/>
-		<testcase classname="holiday.tests.PageHitTests" name="test_view_create_with_past_date" time="0.000" timestamp="2024-04-21T21:37:45" file="holiday\tests.py" line="116"/>
-		<testcase classname="holiday.tests.PageHitTests" name="test_view_daily" time="0.016" timestamp="2024-04-21T21:37:45" file="holiday\tests.py" line="98"/>
-		<testcase classname="holiday.tests.PageHitTests" name="test_view_list_all_holidays" time="0.000" timestamp="2024-04-21T21:37:45" file="holiday\tests.py" line="65"/>
-		<testcase classname="holiday.tests.PageHitTests" name="test_view_monthly" time="0.016" timestamp="2024-04-21T21:37:45" file="holiday\tests.py" line="73"/>
-		<testcase classname="holiday.tests.PageHitTests" name="test_view_monthly_with_no_result" time="0.000" timestamp="2024-04-21T21:37:45" file="holiday\tests.py" line="84"/>
+		<testcase classname="holiday.tests.PageHitTests" name="test_view_create" time="0.016" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="108"/>
+		<testcase classname="holiday.tests.PageHitTests" name="test_view_create_with_past_date" time="0.000" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="116"/>
+		<testcase classname="holiday.tests.PageHitTests" name="test_view_daily" time="0.000" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="98"/>
+		<testcase classname="holiday.tests.PageHitTests" name="test_view_list_all_holidays" time="0.016" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="65"/>
+		<testcase classname="holiday.tests.PageHitTests" name="test_view_monthly" time="0.000" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="73"/>
+		<testcase classname="holiday.tests.PageHitTests" name="test_view_monthly_with_no_result" time="0.000" timestamp="2024-05-01T18:59:57" file="holiday\tests.py" line="84"/>
 	</testsuite>
 </testsuites>

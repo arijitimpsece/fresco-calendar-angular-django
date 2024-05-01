@@ -165,7 +165,10 @@ class DailyHolidayView(generics.ListAPIView):
         date = datetime.strptime(request.data["date"],"%d/%m/%Y").date()
         queryset = Holiday.objects.filter(city_name=request.data["city_name"],date=date)
         serializer_class = DailySerializer(queryset, many=True)
-        return Response(serializer_class.data[0])
+        if serializer_class.data:
+            return JsonResponse(serializer_class.data[0], safe=False)
+        else:
+            return JsonResponse(serializer_class.data, safe=False)    
 class CityView(generics.ListAPIView):
     def delete(self, request, pk):
         wish = Cities.objects.get(pk=pk)
