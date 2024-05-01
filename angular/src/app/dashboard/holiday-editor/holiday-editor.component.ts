@@ -37,6 +37,7 @@ export class HolidayEditorComponent implements OnInit, OnChanges {
    * When city change get Holiday information
    */
   ngOnChanges(changes: SimpleChanges): void {
+    this.getSelectedHolidayInfo()
   }
 
   /**
@@ -71,8 +72,13 @@ export class HolidayEditorComponent implements OnInit, OnChanges {
       if (selectedDate > currentDate) {
         this.holidayServiceObj.getSelectedHolidayInfo(this.selectedDate, this.city).subscribe(
           (data) => {
+            console.log(data)
+            if (data) {
+              this.holidayEditor.get('holidayName').setValue(data.holidayName);
+            }
+            this.holidayObj = data;            
             this.editorFlag = true;
-            this.holidayObj = data;
+            
           },
           (error) => {
             // Handle errors here
@@ -93,7 +99,17 @@ export class HolidayEditorComponent implements OnInit, OnChanges {
    *    -> Get Holiday information
    */
   addHoliday() {
-
+      this.holidayServiceObj.addHoliday(this.selectedDate, this.city, this.holidayName.value).subscribe(response => {
+        this.holidayServiceObj.monthComponentNotify();
+        this.getSelectedHolidayInfo();
+      },
+      error => {
+        console.log('Add fail');
+        
+        // this.loginError = 'Invalid email or password';
+        // Handle login error here
+      }
+    );
   }
 
   /**

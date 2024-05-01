@@ -46,7 +46,7 @@ export class HolidayService {
 
   // to notify holiday-view component.Use monthViewUpdate 
   monthComponentNotify() {
-    // this.monthViewUpdate.next();
+    this.monthViewUpdate.next();
   }
 
   // **************** Authentication **************** //
