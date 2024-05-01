@@ -34,15 +34,18 @@
         <!-- 
             Note: do not use Table tag.
         -->
-     <div *ngFor="let row of dateObj" class="tr-row">
-            <div *ngFor="let cell of row" class="td-month">
-                <div *ngIf="cell.enabled">
-                       <div class="mat-h1" (click)="sendSelectedDate(cell.date)" [ngClass]="[cell.enabled ? 'tdEnabled' : 'tdDisabled']">{{cell.date}}</div> 
+     <div *ngFor="let row of dateObj; let rowIndex = index" class="tr-row">
+            <div *ngFor="let cell of row" class="td-month" >
+                    <div *ngIf="cell.enabled">
+                       <div class="mat-h1 "  (click)="sendSelectedDate(cell.date)" 
+                        [class.tdEnabled]="cell.enabled" 
+                        [class.tdSelected] = "cell.date === selectedDate"
+                        >{{extractDay(cell.date)}}</div> 
                    </div>
                    <div *ngIf="!cell.enabled">
-                       <div class="mat-h1"  [ngClass]="[cell.enabled ? 'tdEnabled' : 'tdDisabled']">{{cell.date}}</div> 
+                       <div class="mat-h1"  [ngClass]="[cell.enabled ? 'tdEnabled' : 'tdDisabled']" >{{extractDay(cell.date)}}</div> 
                    </div>
-               <div  class="mat-h3 holidayBox">{{ cell.date }}</div>
+               <div  class="mat-h3 holidayBox"></div>
             </div>
         </div>
     </div>

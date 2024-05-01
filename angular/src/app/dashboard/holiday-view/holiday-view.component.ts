@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, SimpleChanges, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { DateInMonth } from '../../DateInMonth';
 import { HolidayService } from 'src/app/services/holiday.service';
 import { Subscription } from 'rxjs';
@@ -20,18 +20,16 @@ export class HolidayViewComponent implements OnInit, OnChanges {
 weekHeader = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   // assign user selected date to selectedDate
-  selectedDate: any =new Date('2020/02/14');
+  @Output() selectedDate: any;
   monthViewUpdateSubscription: Subscription;
   // use dateObj to store DateInMonth objects
   dateObj: Array<Array<DateInMonth>> = Array();
-// @Output() selectedDate: EventEmitter<string> = new EventEmitter<string>();
+  // @Output() selectedDate: EventEmitter<string> = new EventEmitter<string>();
   /**
    * Fetch holiday list and insert into responseDateObjs
    */
   responseDateObjs: Map<any, any> = new Map();
-
   constructor(private holidayServiceObj: HolidayService) {
-
   }
 
   /**
@@ -60,14 +58,14 @@ weekHeader = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 
       // Send the selected date to holiday editor using sendUserSelectedDateId function in HolidayService
       this.holidayServiceObj.sendUserSelectedDateId(this.selectedDate);
-    this.holidayInitializer()
-    // this.monthGenerator()
-    this.holidayServiceObj.monthViewUpdateNotifier$.subscribe(() => {
-      // this.holidayServiceObj.monthViewUpdate.next();
-      // Perform actions when month view updates
-      // For example, generate month or update holiday editor UI
-      this.monthGenerator(); // Your logic here
-    })
+    // this.holidayInitializer()
+    // // this.monthGenerator()
+    // this.holidayServiceObj.monthViewUpdateNotifier$.subscribe(() => {
+    //   // this.holidayServiceObj.monthViewUpdate.next();
+    //   // Perform actions when month view updates
+    //   // For example, generate month or update holiday editor UI
+    //   this.monthGenerator(); // Your logic here
+    // })
     
 
     // this.monthViewUpdateSubscription = this.holidayServiceObj.monthViewUpdateNotifier$.subscribe(() => {
@@ -154,12 +152,15 @@ weekHeader = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
     fullArray.push(weekArray)
   }
   this.dateObj = fullArray
+
   console.log(this.dateObj)
   this.holidayInitializer()
 
 
   }
-
+extractDay(dateString: string): string {
+    return dateString.split('/')[0];
+  }
 daysInMonth(monthIndex){
     if(monthIndex + 1 === 4 || monthIndex + 1 === 6 || monthIndex + 1 === 9 || monthIndex + 1 === 11){
       return 30;
@@ -175,11 +176,12 @@ daysInMonth(monthIndex){
   holidayInitializer() {
   this.holidayServiceObj.getHolidays(this.city,this.monthIndex,this.year).subscribe(
       (data) => {
-        console.log(data);
+        // console.log(data);
         // Handle successful data retrieval here
         if (Object.keys(data).length != 0){
           data.forEach(element => {
            this.responseDateObjs.set(element.date,element)
+           console.log(this.responseDateObjs)
           });
         }
       },
@@ -221,5 +223,13 @@ daysInMonth(monthIndex){
     if (this.monthViewUpdateSubscription) {
       this.monthViewUpdateSubscription.unsubscribe();
     }
+  }
+
+  isHoliday(day, responseDateObjs): boolean {
+    // console.log(responseDateObjs);
+
+    // Your logic to check if the day is a holiday
+    // For demonstration, let's assume some days are holidays
+    return day === '14/02/2020' ;
   }
 }

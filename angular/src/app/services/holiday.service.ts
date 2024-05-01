@@ -40,7 +40,8 @@ export class HolidayService {
 
   // to send selected date from holiday-view component to holiday-editor component
   sendUserSelectedDateId(date) {
-console.log('Selected date:', date);
+    this.userDateSelection.next(date);
+    console.log('Selected date:', date);
   }
 
   // to notify holiday-view component.Use monthViewUpdate 
@@ -118,8 +119,15 @@ console.log('Selected date:', date);
    * Use the URL 'api/daily/'
    */
   getSelectedHolidayInfo(date: string, city: string): Observable<any> {
-   
-    return this.http.post('api/daily/',{date: date, city_name: city});
+    const pref = 'api/daily/';
+    const req = new HttpRequest('POST', pref, {date: date, city_name: city});
+     return this.http.request(req).pipe(
+      map(event => {
+        if (event instanceof HttpResponse) {
+          return event.body;
+        }
+      })
+    );
   }
 
   /**
