@@ -1,0 +1,67 @@
+.calendar-header {
+    display: flex;
+    justify-content: space-around;
+}
+
+.week {
+    width: 10vw;
+    background-color: white;
+    text-align: center;
+    padding: 5px 0 2px 0;
+    border: solid 1px black;
+}
+
+.td-month {
+    width: 10vw;
+    padding: 20px 0px 2px 0px;
+    background-color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    height: 24vh;
+    border-radius: 5px;
+}
+
+.tdEnabled:hover {
+    background-color: #00838F;
+    color: white;
+}
+
+.tdDisabled {
+    background-color: #CFD8DC;
+    color: black;
+}
+
+.tdSelected {
+    background-color: #00838F;
+    color: white;
+    cursor: default;
+}
+
+.tr-row {
+    display: flex;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.holidayBox {
+    margin: 20px 5px 0 5px;
+    border: solid 0.01em black;
+    padding-top: 4px;
+    padding-bottom: 1px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.holidayBox:hover {
+    color: #00838F;
+    background-color: white;
+}
+.holidayBoxUnSelected{
+    background-color: #00838F;
+    color: white;
+}
+.holidayBoxSelected {
+    color: #00838F;
+    background-color: white;
+}

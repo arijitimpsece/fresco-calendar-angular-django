@@ -1,0 +1,62 @@
+.holiday-view {
+    width: 75vw;
+    margin-left: 1vw;
+    height: 90vh;
+    border-right: solid 0.01em #00838F;
+    padding-right: 12px;
+}
+
+.calendar-controller {
+    margin-top: 18px;
+    height: 50px;
+    background-color: rgba(0, 131, 143, 0.9);
+    border-radius: 5px;
+    padding-right: 15px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    overflow: hidden;
+}
+
+.holiday-editor {
+    margin-top: 20px;
+    width: 25vw;
+}
+
+.dashboard {
+    display: flex;
+    margin-top: 50px;
+}
+
+.flex {
+    display: flex;
+}
+
+.nameArrage {
+    margin-top: 5px;
+    text-align: center;
+}
+
+.left {
+    padding-top: 6px;
+}
+
+.sign-out {
+    float: right;
+    position: fixed;
+    right: 2px;
+    top: 5px;
+    color: white;
+    z-index: 10;
+}
+
+.selector_city {
+    margin-right: 12px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.select-container {
+    margin-top: 1px;
+    height: 48px;
+    overflow: hidden;
+}

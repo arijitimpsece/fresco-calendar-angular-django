@@ -1,0 +1,109 @@
+<div class='dashboard'>
+
+    <div class="sign-out">
+        <!-- On click should call signOut-->
+        <button mat-flat-button color="primary" id="signOut">Sign out</button>
+    </div>
+
+
+    <div class="holiday-view">
+
+        <div class="mat-h2 calendar-controller">
+
+            <div class="flex left">
+
+                <!--Month navigation-->
+
+                <!-- 
+                    On click should call navigationArrowMonth
+                -->
+                <button mat-icon-button id="leftMonthKey" aria-label="left naviage" >
+                    <mat-icon>keyboard_arrow_left
+                    </mat-icon>
+                </button>
+
+                <div id="monthValue" class="nameArrage" style="width: 120px;">
+                    <!-- 
+                        Display month in Alphabets
+                    -->
+
+                </div>
+
+                <!-- 
+                    On click should call navigationArrowMonth
+                    disable when reaches limit
+                -->
+                <button mat-icon-button id="rightMonthKey" aria-label="right naviage" >
+                    <mat-icon>keyboard_arrow_right
+                    </mat-icon>
+                </button>
+
+                <!--Month navigation end-->
+
+                <!--Year navigation-->
+
+                <!--
+                     On click should call navigationArrowYear
+                    -->
+                <button id="leftYearKey" mat-icon-button aria-label="left naviage" >
+                    <mat-icon>keyboard_arrow_left
+                    </mat-icon>
+                </button>
+
+                <div id="yearValue" class="nameArrage" style="width: 80px;">
+                    <!-- 
+                        Display year 
+                     -->
+
+                </div>
+
+                <!-- 
+                    On click should call navigationArrowYear
+                    disable when reaches limit
+                -->
+                <button id="rightYearKey" mat-icon-button aria-label="right naviage" >
+                    <mat-icon>keyboard_arrow_right
+                    </mat-icon>
+                </button>
+
+                <!--Year navigation end-->
+
+            </div>
+            <div class="flex">
+                <div class='select-container'>
+                    <!--
+                        On select city the object should be assigned to 'selectedCity'
+
+                    -->
+                    <mat-form-field [style.fontSize.px]="12" class='selector_city' appearance="outline">
+                        <!--
+                                Add mat select here.
+                                mat-select should contain id as "cityDropDown"
+                                The selected city should be assigned to "selectedCity" variable 
+                            -->
+                        <mat-select id="cityDropDown" placeholder="Select" >
+
+                        </mat-select>
+
+                    </mat-form-field>
+                </div>
+
+                <!-- On click should call uploadDialog-->
+                <button id="uploadBtn" mat-icon-button aria-label="cloud upload" style='margin-top:5px'>
+
+                    <mat-icon>cloud_upload</mat-icon>
+
+                </button>
+            </div>
+
+        </div>
+
+        <app-holiday-view *ngIf='selectedCity' [monthIndex]='monthIndex' [year]='year' [city]='selectedCity'>
+        </app-holiday-view>
+
+    </div>
+
+
+    <app-holiday-editor class="holiday-editor" [city]='selectedCity'>
+    </app-holiday-editor>
+</div>
