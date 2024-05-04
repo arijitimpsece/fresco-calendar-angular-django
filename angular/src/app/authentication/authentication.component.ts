@@ -53,19 +53,24 @@ export class AuthenticationComponent implements OnInit {
  
     this.holidayServiceObj.signIn(this.userName.value, this.password.value).subscribe(
       response => {
-        if (response.status == 1) {
+        
+        if (response && response['status'] == 1) {
+          this.holidayServiceObj.authKey= true;
           localStorage.setItem('isLoggedIn', 'true');
            this.route.navigate(['/dashboard']);
            // alert(localStorage.getItem('isLoggedIn'))
            return true;
          }  else {
+          console.log(222333)
+          this.holidayServiceObj.authKey= false;
           this.snackBar.open('Invalid password', 'Close');
           return false;
          }
         // Handle successful login response here
       },
       error => {
-        console.error('Login failed:', error);
+        this.holidayServiceObj.authKey= false;
+        console.log('Login failed:');
         this.snackBar.open('Invalid password', 'Close');
         return false;
         // this.loginError = 'Invalid email or password';

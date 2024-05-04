@@ -1,18 +1,18 @@
-    <div class="calendar-header">
-        <!--
+<div class="calendar-header">
+    <!--
             Calendar Header
         -->
-        <!--
+    <!--
            Each header should contain two css class
                 1. week
                 2. mat-h3
         -->
 
-    <div *ngFor="let week of weekHeader" class="week mat-h3">{{week}}</div>
-    </div>
+    <div class="week mat-h3" *ngFor="let week of weekHeader">{{ week }}</div>
+</div>
 
-    <div class="calendar-body" *ngIf="dateObj.length>0">
-        <!--
+<div class="calendar-body" *ngIf="dateObj.length > 0">
+    <!--
         Create a calendar grid
         * The gird should contain 6 rows and 7 column
         * Each row should contain "tr-row" css class
@@ -23,7 +23,7 @@
             * If a cell is selected then add "tdSelected" css class to it.
         -->
 
-        <!--
+    <!--
             Use "mat-h1" css class for displaying date
             Use "mat-h3", "holidayBox" css class for displaying holiday name
             Add "holidayBoxUnSelected" css class for  Unselected holiday name
@@ -31,21 +31,29 @@
                 * Add "holidayBoxSelected" css class
                 * Remove "holidayBoxUnSelected" css class            
         -->
-        <!-- 
+    <!-- 
             Note: do not use Table tag.
         -->
-     <div *ngFor="let row of dateObj; let rowIndex = index" class="tr-row">
-            <div *ngFor="let cell of row" class="td-month" >
-                    <div *ngIf="cell.enabled">
-                       <div class="mat-h1 "  (click)="sendSelectedDate(cell.date)" 
-                        [class.tdEnabled]="cell.enabled" 
-                        [class.tdSelected] = "cell.date === selectedDate"
-                        >{{extractDay(cell.date)}}</div> 
-                   </div>
-                   <div *ngIf="!cell.enabled">
-                       <div class="mat-h1"  [ngClass]="[cell.enabled ? 'tdEnabled' : 'tdDisabled']" >{{extractDay(cell.date)}}</div> 
-                   </div>
-               <div  class="mat-h3 holidayBox"></div>
+    <div *ngFor="let row of dateObj" class="tr-row">
+        <div
+            *ngFor="let cell of row"
+            class="td-month"
+            [ngClass]="{
+                tdEnabled: cell.enabled,
+                tdDisabled: !cell.enabled,
+                tdSelected: cell.date==selectedDate
+            }"
+            (click)="cell.enabled && sendSelectedDate(cell.date)"
+        >
+            <div class="mat-h1">{{ cell.date.substring(0, 2) }}</div>            
+            <div
+                class="mat-h3 holidayBox" [ngClass]="{
+                    holidayBoxSelected: cell.date==selectedDate,
+                    holidayBoxUnSelected: cell.date!=selectedDate
+                }"
+            >
+                {{ responseDateObjs.get(cell.date)?.holidayName  }}
             </div>
         </div>
     </div>
+</div>

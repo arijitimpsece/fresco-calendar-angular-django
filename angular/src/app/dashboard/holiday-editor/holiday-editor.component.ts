@@ -68,15 +68,21 @@ export class HolidayEditorComponent implements OnInit, OnChanges {
       let arr = this.selectedDate.split('/');
       const formattedDate = arr[2] + '-' + arr[1] + '-' + arr[0];
       const selectedDate = new Date(formattedDate);
-
       if (selectedDate > currentDate) {
         this.holidayServiceObj.getSelectedHolidayInfo(this.selectedDate, this.city).subscribe(
           (data) => {
             console.log(data)
             if (data) {
               this.holidayEditor.get('holidayName').setValue(data.holidayName);
+              this.editorFlag = true;
+              this.holidayObj = data;            
+            } else {
+              this.holidayEditor.reset();
+              this.holidayEditor.get('holidayName').setValue(null);
+               this.editorFlag = true;
+               this.holidayObj = [];            
             }
-            this.holidayObj = data;            
+            
             this.editorFlag = true;
             
           },
@@ -120,7 +126,18 @@ export class HolidayEditorComponent implements OnInit, OnChanges {
    *    -> Get Holiday information
    */
   updateHoliday() {
-
+    this.holidayServiceObj.updateHoliday(this.holidayObj.id, this.selectedDate, this.city, this.holidayName.value).subscribe(response => {
+        this.holidayServiceObj.monthComponentNotify();
+        this.getSelectedHolidayInfo();
+        this.holidayEditor.reset();
+      },
+      error => {
+        console.log('update fail');
+        
+        // this.loginError = 'Invalid email or password';
+        // Handle login error here
+      }
+    );
   }
 
   /**
@@ -131,10 +148,14 @@ export class HolidayEditorComponent implements OnInit, OnChanges {
    *    -> User should be able to add new Holiday
    */
   removeHoliday() {
-   // this.holidayServiceObj.getCities().subscribe(data =>{
-   //    this.cities = data;
-   //    console.log(typeof this.cities)
-   //  })
+   this.holidayServiceObj.removeHoliday(this.holidayObj.id).subscribe(data =>{
+      this.holidayServiceObj.monthComponentNotify();
+      this.holidayObj = {};
+      this.holidayEditor.reset();
+    })
   }
 
+  isObjectXEmpty(){
+    return this.holidayObj.length === 0
+  } 
 }

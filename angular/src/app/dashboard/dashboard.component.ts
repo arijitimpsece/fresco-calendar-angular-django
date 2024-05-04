@@ -143,8 +143,7 @@ export class DashboardComponent implements OnInit {
    * After dialog close upload the file and update holiday view component using monthComponentNotify() in HolidayService
    */
   uploadDialog() {
-    this.holidayServiceObj.addHoliday('14/02/2020','chjsdhjs', 'asdgbio').subscribe(data=>{
-    });
+
     const dialogRef = this.dialog.open(UploadDialogComponent, {
       width: '500px', // Set width of the dialog
       // Optionally you can add more configurations here
@@ -154,7 +153,7 @@ export class DashboardComponent implements OnInit {
       if (result instanceof File) { // Check if result is a File object
         // If upload is successful, call the uploadFile function in the HolidayService
         this.holidayServiceObj.uploadFile(result).subscribe(data=>{
-          // this.holidayServiceObj.monthComponentNotify();
+          this.holidayServiceObj.monthComponentNotify();
         }); // Pass the selected file to the service
       } else {
         console.log('File upload cancelled or no file selected.');

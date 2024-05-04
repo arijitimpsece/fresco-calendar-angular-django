@@ -85,8 +85,8 @@ describe('HolidayViewComponent', () => {
       holidayServiceObj.monthViewUpdateNotifier$.subscribe(res => {
 
       });
-      // monthViewUpdate.next();
-      // expect(s).toHaveBeenCalled();
+      monthViewUpdate.next(true);
+      expect(s).toHaveBeenCalled();
 
     });
 
@@ -188,6 +188,7 @@ describe('HolidayViewComponent', () => {
 
     it('calendar-header should contain header', () => {
       const calendarHeader = fixture.debugElement.query(By.css('.calendar-header'));
+      expect(calendarHeader).toBeTruthy();
       const nativeWeek = calendarHeader.nativeElement.querySelectorAll('.week');
 
       expect(nativeWeek.length).toBe(7);

@@ -44,18 +44,18 @@
                         Disable button when the form is invalid
                         when button click should call addHoliday()
                     -->
-                <button [disabled]="holidayEditor.invalid"  class="btnWidth" mat-flat-button color="primary" (click)="addHoliday()">Add</button>
+                <button *ngIf="!holidayObj.id" [disabled]="holidayEditor.invalid"  class="btnWidth" mat-flat-button color="primary" (click)="addHoliday()">Add</button>
                 <!-- 
                         Display Save button if holiday exists and hide if its a new entry 
                         Disable button when the form is invalid
                         when button click should call updateHoliday()
                     -->
-                <button  class="btnWidth" mat-flat-button color="primary" (click)="updateHoliday()">Save</button>
+                <button *ngIf="holidayObj.id" [disabled]="holidayEditor.invalid"   class="btnWidth" mat-flat-button color="primary" (click)="updateHoliday()">Save</button>
                 <!-- 
                         Display Remove button if holiday exists and hide if its a new entry
                         when button click should call removeHoliday()
                     -->
-                <button  class="btnWidth" mat-stroked-button color="accent" (click)="removeHoliday()">Remove</button>
+                <button *ngIf="holidayObj.id"class="btnWidth" mat-stroked-button color="accent" (click)="removeHoliday()">Remove</button>
 
             </mat-card-actions>
         </form>
